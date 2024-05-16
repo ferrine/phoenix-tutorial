@@ -1,6 +1,6 @@
 { ... } @flake:
 {
-  perSystem = { pkgs, config, ... } @localFlake:
+  perSystem = { pkgs, lib, config, ... } @localFlake:
     let
       script-pg-stop =
         (pkgs.writeShellScriptBin "pg-stop" ''
@@ -138,14 +138,23 @@
           elixir
           elixir-ls
           postgresql
-	  
+
         ]) ++ [
-	  script-pg-reset
-	  script-pg-setup
-	  script-pg-console
-	  script-pg-start
-	  script-pg-stop
-	];
+          script-pg-reset
+          script-pg-setup
+          script-pg-console
+          script-pg-start
+          script-pg-stop
+        ] ++ (
+          lib.optionals pkgs.stdenv.isDarwin
+            (with pkgs; [ terminal-notifier ]
+              ++ (with darwin.apple_sdk.frameworks; [
+              CoreFoundation
+              CoreServices
+            ]))
+          ++ (lib.optionals pkgs.stdenv.isLinux
+            (with pkgs; [ libnotify inotify-tools ]))
+        );
         shellHook = ''
           # set common root for the nix shell in the repo root
           export NIX_SHELL_DIR=$FLAKE_ROOT/.nix-shell

@@ -1,13 +1,18 @@
 defmodule PentoWeb.WrongLive do
   use PentoWeb, :live_view
 
+  def magic_number do
+    :rand.uniform(10) |> to_string
+  end
+
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, score: 0, message: "Make a guess")}
+    {:ok, assign(socket, score: 0, message: "Make a guess", magic_number: magic_number())}
   end
 
   def time do
     DateTime.utc_now() |> to_string
   end
+
 
   @spec render(any) :: Phoenix.LiveView.Rendered.t()
   def render(assigns) do
@@ -31,8 +36,17 @@ defmodule PentoWeb.WrongLive do
   end
 
   def handle_event("guess", %{"number" => guess}, socket) do
-    message = "Your guess is #{guess} which is wrong, try once more"
-    score = socket.assigns.score - 1
-    {:noreply, assign(socket, message: message, score: score)}
+    score = socket.assigns.score
+    case guess == socket.assigns.magic_number do
+      false ->
+        message = "Your guess is #{guess} which is wrong, try once more"
+        score = score - 1
+        {:noreply, assign(socket, message: message, score: score)}
+      true ->
+        number =  magic_number()
+        message = "Congratulations you found the correct number #{guess}, try another one"
+        score = score + 1
+        {:noreply, assign(socket, message: message, score: score, magic_number: number)}
+    end
   end
 end

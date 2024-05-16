@@ -5,6 +5,10 @@ defmodule PentoWeb.WrongLive do
     {:ok, assign(socket, score: 0, message: "Make a guess")}
   end
 
+  def time do
+    DateTime.utc_now() |> to_string
+  end
+
   @spec render(any) :: Phoenix.LiveView.Rendered.t()
   def render(assigns) do
     ~H"""
@@ -22,10 +26,11 @@ defmodule PentoWeb.WrongLive do
         </.link>
       <% end %>
     </h2>
+    <br /> Page loaded at time <%= time() %>
     """
   end
 
-  def handle_event("guess", %{"number" =>  guess}, socket) do
+  def handle_event("guess", %{"number" => guess}, socket) do
     message = "Your guess is #{guess} which is wrong, try once more"
     score = socket.assigns.score - 1
     {:noreply, assign(socket, message: message, score: score)}

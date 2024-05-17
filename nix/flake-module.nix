@@ -1,6 +1,7 @@
 {
-  imports = [
-    ./flake-parts/shell.nix
-    ./flake-parts/packages.nix
-  ];
+  perSystem = { pkgs, ... } @localFlake:
+    rec {
+      legacyPackages = pkgs.callPackage ./default.nix { };
+      devShells.default = legacyPackages.shells.default;
+    };
 }

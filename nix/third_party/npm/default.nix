@@ -1,6 +1,6 @@
-{ callPackage, lib, fetchFromGitHub, ... }:
+{ callPackage, third-party, fetchFromGitHub, ... }:
 let
-  env = lib.js2nix.buildEnv {
+  env = third-party.lib.js2nix.buildEnv {
     package-json = ./package.json;
     yarn-lock-nix = ./yarn.lock.nix;
   };

@@ -11,4 +11,6 @@ let
       mix2nix ${mix_lock} > $out
     '';
 in
-pkgs.callPackage mixlock {}
+  pkgs.callPackage mixlock {
+    # overrides = pkgs.callPackage ./overrides.nix {};
+  } // { _mixlock = mixlock; }

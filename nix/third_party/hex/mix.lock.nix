@@ -1,4 +1,4 @@
-{ lib, beamPackages, overrides ? (x: y: {}) }:
+{ lib, beamPackages, overrides ? (x: y: { }) }:
 
 let
   buildRebar3 = lib.makeOverridable beamPackages.buildRebar3;
@@ -31,7 +31,7 @@ let
         sha256 = "da7785a4b0d2a021cd1292a60875a784b6caef71e76bf4917bdee1f390455cf5";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     db_connection = buildMix rec {
@@ -57,7 +57,7 @@ let
         sha256 = "53cfe5f497ed0e7771ae1a475575603d77425099ba5faef9394932b35020ffcc";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     dns_cluster = buildMix rec {
@@ -70,7 +70,7 @@ let
         sha256 = "46cb7c4a1b3e52c7ad4cbe33ca5079fbde4840dedeafca2baf77996c2da1bc33";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     ecto = buildMix rec {
@@ -122,7 +122,7 @@ let
         sha256 = "8c9bfa06ca017c9cb4020fabe980bc7fdb1aaec059fd004c2ab3bff03b1c599c";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     file_system = buildMix rec {
@@ -135,7 +135,7 @@ let
         sha256 = "6752092d66aec5a10e662aefeed8ddb9531d79db0bc145bb8c40325ca1d8536d";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     finch = buildMix rec {
@@ -161,7 +161,7 @@ let
         sha256 = "a8766c0bc92f074e5cb36c4f9961982eda84c5d2b8e979ca67f5c268ec8ed580";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     gettext = buildMix rec {
@@ -187,7 +187,7 @@ let
         sha256 = "2c87843d5a23f5f16748ebe77969880e29809580efdaccd615cd3bed628a8c13";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     jason = buildMix rec {
@@ -213,7 +213,7 @@ let
         sha256 = "da0d64a365c45bc9935cc5c8a7fc5e49a0e0f9932a761c55d6c52b142780a05c";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     mint = buildMix rec {
@@ -239,7 +239,7 @@ let
         sha256 = "8bbbb3941af3ca9acc7835f5655ea062111c9c27bcac53e004460dfd19008a99";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     nimble_pool = buildMix rec {
@@ -252,7 +252,7 @@ let
         sha256 = "af2e4e6b34197db81f7aad230c1118eac993acc0dae6bc83bac0126d4ae0813a";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     phoenix = buildMix rec {
@@ -291,7 +291,7 @@ let
         sha256 = "f2f2df5a72bc9a2f510b21497fd7d2b86d932ec0598f0210fed4114adc546c6f";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     phoenix_live_dashboard = buildMix rec {
@@ -343,7 +343,7 @@ let
         sha256 = "bba06bc1dcfd8cb086759f0edc94a8ba2bc8896d5331a1e2c2902bf8e36ee502";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     phoenix_template = buildMix rec {
@@ -382,7 +382,7 @@ let
         sha256 = "131216a4b030b8f8ce0f26038bc4421ae60e4bb95c5cf5395e1421437824c4fa";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     postgrex = buildMix rec {
@@ -434,7 +434,7 @@ let
         sha256 = "dad9ce9d8effc621708f99eac538ef1cbe05d6a874dd741de2e689c47feafed5";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     telemetry_metrics = buildMix rec {
@@ -486,7 +486,7 @@ let
         sha256 = "6105453d7fac22c712ad66fab1d45abdf049868f253cf719b625151460b8b453";
       };
 
-      beamDeps = [];
+      beamDeps = [ ];
     };
 
     websock_adapter = buildMix rec {
@@ -502,5 +502,6 @@ let
       beamDeps = [ bandit plug websock ];
     };
   };
-in self
+in
+self
 

@@ -34,3 +34,5 @@ pento-*.tar
 # In case you use Node.js/npm, you want to ignore these.
 npm-debug.log
 /assets/node_modules/
+# ignore unused lock, also prevents nix using this lock and ensues
+mix.lock

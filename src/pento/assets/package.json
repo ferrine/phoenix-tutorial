@@ -1,0 +1,11 @@
+{
+    "name": "assets",
+    "dependencies": {
+        "phoenix_html": "*",
+        "phoenix": "*",
+        "phoenix_live_view": "*"
+    },
+    "devDependencies": {
+        "esbuild": "^0.21.3"
+    }
+}

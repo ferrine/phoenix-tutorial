@@ -218,24 +218,6 @@ self: super: {
       sha1 = "899c03576c4c28c83228f0e64dfa10edae99c9a2"; 
     };
   };
-  "@isaacs/cliui" = self."@isaacs/cliui@8.0.2";
-  "@isaacs/cliui@8.0.2" = self.buildNodeModule {
-    id = { scope = "isaacs"; name = "cliui"; };
-    version = "8.0.2";
-    src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/@isaacs/cliui/-/cliui-8.0.2.tgz"; 
-      sha1 = "b37667b7bc181c168782259bab42474fbf52b550"; 
-    };
-    modules = [
-      self."string-width-cjs@4.2.3"
-      self."string-width@5.1.2"
-      self."strip-ansi-cjs@6.0.1"
-      self."strip-ansi@7.1.0"
-      self."wrap-ansi-cjs@7.0.0"
-      self."wrap-ansi@8.1.0"
-    ];
-  };
-  "@isaacs/cliui@^8.0.2" = self."@isaacs/cliui@8.0.2";
   "@jridgewell/gen-mapping" = self."@jridgewell/gen-mapping@0.3.5";
   "@jridgewell/gen-mapping@0.3.5" = self.buildNodeModule {
     id = { scope = "jridgewell"; name = "gen-mapping"; };
@@ -343,17 +325,7 @@ self: super: {
     };
   };
   "@pkgjs/parseargs@^0.11.0" = self."@pkgjs/parseargs@0.11.0";
-  "ansi-regex" = abort ''
-
-
-    Unable to refer to the package via the `ansi-regex` name due to versions' clash.
-    Consider referring the package directly via one of these names:
-
-      - `ansi-regex@5.0.1`
-      - `ansi-regex@6.0.1`
-
-
-  '';
+  "ansi-regex" = self."ansi-regex@5.0.1";
   "ansi-regex@5.0.1" = self.buildNodeModule {
     id = { scope = ""; name = "ansi-regex"; };
     version = "5.0.1";
@@ -362,27 +334,8 @@ self: super: {
       sha1 = "082cb2c89c9fe8659a311a53bd6a4dc5301db304"; 
     };
   };
-  "ansi-regex@6.0.1" = self.buildNodeModule {
-    id = { scope = ""; name = "ansi-regex"; };
-    version = "6.0.1";
-    src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-6.0.1.tgz"; 
-      sha1 = "3183e38fae9a65d7cb5e53945cd5897d0260a06a"; 
-    };
-  };
   "ansi-regex@^5.0.1" = self."ansi-regex@5.0.1";
-  "ansi-regex@^6.0.1" = self."ansi-regex@6.0.1";
-  "ansi-styles" = abort ''
-
-
-    Unable to refer to the package via the `ansi-styles` name due to versions' clash.
-    Consider referring the package directly via one of these names:
-
-      - `ansi-styles@4.3.0`
-      - `ansi-styles@6.2.1`
-
-
-  '';
+  "ansi-styles" = self."ansi-styles@4.3.0";
   "ansi-styles@4.3.0" = self.buildNodeModule {
     id = { scope = ""; name = "ansi-styles"; };
     version = "4.3.0";
@@ -394,16 +347,7 @@ self: super: {
       self."color-convert@2.0.1"
     ];
   };
-  "ansi-styles@6.2.1" = self.buildNodeModule {
-    id = { scope = ""; name = "ansi-styles"; };
-    version = "6.2.1";
-    src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.2.1.tgz"; 
-      sha1 = "0e62320cf99c21afff3b3012192546aacbfb05c5"; 
-    };
-  };
   "ansi-styles@^4.0.0" = self."ansi-styles@4.3.0";
-  "ansi-styles@^6.1.0" = self."ansi-styles@6.2.1";
   "any-promise" = self."any-promise@1.3.0";
   "any-promise@1.3.0" = self.buildNodeModule {
     id = { scope = ""; name = "any-promise"; };
@@ -515,6 +459,21 @@ self: super: {
     ];
   };
   "chokidar@^3.5.3" = self."chokidar@3.6.0";
+  "cliui" = self."cliui@8.0.1";
+  "cliui@8.0.1" = self.buildNodeModule {
+    id = { scope = ""; name = "cliui"; };
+    version = "8.0.1";
+    src = self.fetchurl {  
+      url = "https://registry.yarnpkg.com/cliui/-/cliui-8.0.1.tgz"; 
+      sha1 = "0c04b075db02cbfe60dc8e6cf2f5486b1a3608aa"; 
+    };
+    modules = [
+      self."string-width@4.2.3"
+      self."strip-ansi@6.0.1"
+      self."wrap-ansi@7.0.0"
+    ];
+  };
+  "cliui@^8.0.1" = self."cliui@8.0.1";
   "color-convert" = self."color-convert@2.0.1";
   "color-convert@2.0.1" = self.buildNodeModule {
     id = { scope = ""; name = "color-convert"; };
@@ -593,27 +552,7 @@ self: super: {
     };
   };
   "dlv@^1.1.3" = self."dlv@1.1.3";
-  "eastasianwidth" = self."eastasianwidth@0.2.0";
-  "eastasianwidth@0.2.0" = self.buildNodeModule {
-    id = { scope = ""; name = "eastasianwidth"; };
-    version = "0.2.0";
-    src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/eastasianwidth/-/eastasianwidth-0.2.0.tgz"; 
-      sha1 = "696ce2ec0aa0e6ea93a397ffcf24aa7840c827cb"; 
-    };
-  };
-  "eastasianwidth@^0.2.0" = self."eastasianwidth@0.2.0";
-  "emoji-regex" = abort ''
-
-
-    Unable to refer to the package via the `emoji-regex` name due to versions' clash.
-    Consider referring the package directly via one of these names:
-
-      - `emoji-regex@8.0.0`
-      - `emoji-regex@9.2.2`
-
-
-  '';
+  "emoji-regex" = self."emoji-regex@8.0.0";
   "emoji-regex@8.0.0" = self.buildNodeModule {
     id = { scope = ""; name = "emoji-regex"; };
     version = "8.0.0";
@@ -622,16 +561,7 @@ self: super: {
       sha1 = "e818fd69ce5ccfcb404594f842963bf53164cc37"; 
     };
   };
-  "emoji-regex@9.2.2" = self.buildNodeModule {
-    id = { scope = ""; name = "emoji-regex"; };
-    version = "9.2.2";
-    src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.2.tgz"; 
-      sha1 = "840c8803b0d8047f4ff0cf963176b32d4ef3ed72"; 
-    };
-  };
   "emoji-regex@^8.0.0" = self."emoji-regex@8.0.0";
-  "emoji-regex@^9.2.2" = self."emoji-regex@9.2.2";
   "esbuild" = self."esbuild@0.21.3";
   "esbuild@0.21.3" = self.buildNodeModule {
     id = { scope = ""; name = "esbuild"; };
@@ -666,7 +596,6 @@ self: super: {
       self."@esbuild/win32-x64@0.21.3"
     ];
   };
-  "esbuild@^0.21.3" = self."esbuild@0.21.3";
   "fast-glob" = self."fast-glob@3.3.2";
   "fast-glob@3.3.2" = self.buildNodeModule {
     id = { scope = ""; name = "fast-glob"; };
@@ -790,7 +719,7 @@ self: super: {
     };
     modules = [
       self."foreground-child@3.1.1"
-      self."jackspeak@2.3.6"
+      self."jackspeak@2.1.1"
       self."minimatch@9.0.4"
       self."minipass@7.1.1"
       self."path-scurry@1.11.1"
@@ -901,20 +830,20 @@ self: super: {
     };
   };
   "isexe@^2.0.0" = self."isexe@2.0.0";
-  "jackspeak" = self."jackspeak@2.3.6";
-  "jackspeak@2.3.6" = self.buildNodeModule {
+  "jackspeak" = self."jackspeak@2.1.1";
+  "jackspeak@2.1.1" = self.buildNodeModule {
     id = { scope = ""; name = "jackspeak"; };
-    version = "2.3.6";
+    version = "2.1.1";
     src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/jackspeak/-/jackspeak-2.3.6.tgz"; 
-      sha1 = "647ecc472238aee4b06ac0e461acc21a8c505ca8"; 
+      url = "https://registry.yarnpkg.com/jackspeak/-/jackspeak-2.1.1.tgz"; 
+      sha1 = "2a42db4cfbb7e55433c28b6f75d8b796af9669cd"; 
     };
     modules = [
-      self."@isaacs/cliui@8.0.2"
       self."@pkgjs/parseargs@0.11.0"
+      self."cliui@8.0.1"
     ];
   };
-  "jackspeak@^2.3.6" = self."jackspeak@2.3.6";
+  "jackspeak@^2.3.6" = self."jackspeak@2.1.1";
   "jiti" = self."jiti@1.21.0";
   "jiti@1.21.0" = self.buildNodeModule {
     id = { scope = ""; name = "jiti"; };
@@ -1367,32 +1296,7 @@ self: super: {
     };
   };
   "source-map-js@^1.2.0" = self."source-map-js@1.2.0";
-  "string-width" = abort ''
-
-
-    Unable to refer to the package via the `string-width` name due to versions' clash.
-    Consider referring the package directly via one of these names:
-
-      - `string-width@4.2.3`
-      - `string-width@5.1.2`
-
-
-  '';
-  "string-width-cjs" = self."string-width-cjs@4.2.3";
-  "string-width-cjs@4.2.3" = self.buildNodeModule {
-    id = { scope = ""; name = "string-width-cjs"; };
-    version = "4.2.3";
-    src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz"; 
-      sha1 = "269c7117d27b05ad2e536830a8ec895ef9c6d010"; 
-    };
-    modules = [
-      self."emoji-regex@8.0.0"
-      self."is-fullwidth-code-point@3.0.0"
-      self."strip-ansi@6.0.1"
-    ];
-  };
-  "string-width-cjs@npm:string-width@^4.2.0" = self."string-width-cjs@4.2.3";
+  "string-width" = self."string-width@4.2.3";
   "string-width@4.2.3" = self.buildNodeModule {
     id = { scope = ""; name = "string-width"; };
     version = "4.2.3";
@@ -1406,46 +1310,9 @@ self: super: {
       self."strip-ansi@6.0.1"
     ];
   };
-  "string-width@5.1.2" = self.buildNodeModule {
-    id = { scope = ""; name = "string-width"; };
-    version = "5.1.2";
-    src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/string-width/-/string-width-5.1.2.tgz"; 
-      sha1 = "14f8daec6d81e7221d2a357e668cab73bdbca794"; 
-    };
-    modules = [
-      self."eastasianwidth@0.2.0"
-      self."emoji-regex@9.2.2"
-      self."strip-ansi@7.1.0"
-    ];
-  };
   "string-width@^4.1.0" = self."string-width@4.2.3";
-  "string-width@^5.0.1" = self."string-width@5.1.2";
-  "string-width@^5.1.2" = self."string-width@5.1.2";
-  "strip-ansi" = abort ''
-
-
-    Unable to refer to the package via the `strip-ansi` name due to versions' clash.
-    Consider referring the package directly via one of these names:
-
-      - `strip-ansi@6.0.1`
-      - `strip-ansi@7.1.0`
-
-
-  '';
-  "strip-ansi-cjs" = self."strip-ansi-cjs@6.0.1";
-  "strip-ansi-cjs@6.0.1" = self.buildNodeModule {
-    id = { scope = ""; name = "strip-ansi-cjs"; };
-    version = "6.0.1";
-    src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz"; 
-      sha1 = "9e26c63d30f53443e9489495b2105d37b67a85d9"; 
-    };
-    modules = [
-      self."ansi-regex@5.0.1"
-    ];
-  };
-  "strip-ansi-cjs@npm:strip-ansi@^6.0.1" = self."strip-ansi-cjs@6.0.1";
+  "string-width@^4.2.0" = self."string-width@4.2.3";
+  "strip-ansi" = self."strip-ansi@6.0.1";
   "strip-ansi@6.0.1" = self.buildNodeModule {
     id = { scope = ""; name = "strip-ansi"; };
     version = "6.0.1";
@@ -1457,20 +1324,8 @@ self: super: {
       self."ansi-regex@5.0.1"
     ];
   };
-  "strip-ansi@7.1.0" = self.buildNodeModule {
-    id = { scope = ""; name = "strip-ansi"; };
-    version = "7.1.0";
-    src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-7.1.0.tgz"; 
-      sha1 = "d5b6568ca689d8561370b0707685d22434faff45"; 
-    };
-    modules = [
-      self."ansi-regex@6.0.1"
-    ];
-  };
   "strip-ansi@^6.0.0" = self."strip-ansi@6.0.1";
   "strip-ansi@^6.0.1" = self."strip-ansi@6.0.1";
-  "strip-ansi@^7.0.1" = self."strip-ansi@7.1.0";
   "sucrase" = self."sucrase@3.35.0";
   "sucrase@3.35.0" = self.buildNodeModule {
     id = { scope = ""; name = "sucrase"; };
@@ -1606,10 +1461,9 @@ self: super: {
     ];
   };
   "which@^2.0.1" = self."which@2.0.2";
-  "wrap-ansi" = self."wrap-ansi@8.1.0";
-  "wrap-ansi-cjs" = self."wrap-ansi-cjs@7.0.0";
-  "wrap-ansi-cjs@7.0.0" = self.buildNodeModule {
-    id = { scope = ""; name = "wrap-ansi-cjs"; };
+  "wrap-ansi" = self."wrap-ansi@7.0.0";
+  "wrap-ansi@7.0.0" = self.buildNodeModule {
+    id = { scope = ""; name = "wrap-ansi"; };
     version = "7.0.0";
     src = self.fetchurl {  
       url = "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz"; 
@@ -1621,21 +1475,7 @@ self: super: {
       self."strip-ansi@6.0.1"
     ];
   };
-  "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0" = self."wrap-ansi-cjs@7.0.0";
-  "wrap-ansi@8.1.0" = self.buildNodeModule {
-    id = { scope = ""; name = "wrap-ansi"; };
-    version = "8.1.0";
-    src = self.fetchurl {  
-      url = "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-8.1.0.tgz"; 
-      sha1 = "56dc22368ee570face1b49819975d9b9a5ead214"; 
-    };
-    modules = [
-      self."ansi-styles@6.2.1"
-      self."string-width@5.1.2"
-      self."strip-ansi@7.1.0"
-    ];
-  };
-  "wrap-ansi@^8.1.0" = self."wrap-ansi@8.1.0";
+  "wrap-ansi@^7.0.0" = self."wrap-ansi@7.0.0";
   "yaml" = self."yaml@2.4.2";
   "yaml@2.4.2" = self.buildNodeModule {
     id = { scope = ""; name = "yaml"; };
@@ -1678,8 +1518,6 @@ self: super: {
     "@esbuild/win32-arm64" = "@esbuild/win32-arm64@0.21.3";
     "@esbuild/win32-ia32" = "@esbuild/win32-ia32@0.21.3";
     "@esbuild/win32-x64" = "@esbuild/win32-x64@0.21.3";
-    "@isaacs/cliui" = "@isaacs/cliui@8.0.2";
-    "@isaacs/cliui@^8.0.2" = "@isaacs/cliui@8.0.2";
     "@jridgewell/gen-mapping" = "@jridgewell/gen-mapping@0.3.5";
     "@jridgewell/gen-mapping@^0.3.2" = "@jridgewell/gen-mapping@0.3.5";
     "@jridgewell/resolve-uri" = "@jridgewell/resolve-uri@3.1.2";
@@ -1698,10 +1536,10 @@ self: super: {
     "@nodelib/fs.walk@^1.2.3" = "@nodelib/fs.walk@1.2.8";
     "@pkgjs/parseargs" = "@pkgjs/parseargs@0.11.0";
     "@pkgjs/parseargs@^0.11.0" = "@pkgjs/parseargs@0.11.0";
+    "ansi-regex" = "ansi-regex@5.0.1";
     "ansi-regex@^5.0.1" = "ansi-regex@5.0.1";
-    "ansi-regex@^6.0.1" = "ansi-regex@6.0.1";
+    "ansi-styles" = "ansi-styles@4.3.0";
     "ansi-styles@^4.0.0" = "ansi-styles@4.3.0";
-    "ansi-styles@^6.1.0" = "ansi-styles@6.2.1";
     "any-promise" = "any-promise@1.3.0";
     "any-promise@^1.0.0" = "any-promise@1.3.0";
     "anymatch" = "anymatch@3.1.3";
@@ -1721,6 +1559,8 @@ self: super: {
     "camelcase-css@^2.0.1" = "camelcase-css@2.0.1";
     "chokidar" = "chokidar@3.6.0";
     "chokidar@^3.5.3" = "chokidar@3.6.0";
+    "cliui" = "cliui@8.0.1";
+    "cliui@^8.0.1" = "cliui@8.0.1";
     "color-convert" = "color-convert@2.0.1";
     "color-convert@^2.0.1" = "color-convert@2.0.1";
     "color-name" = "color-name@1.1.4";
@@ -1735,12 +1575,9 @@ self: super: {
     "didyoumean@^1.2.2" = "didyoumean@1.2.2";
     "dlv" = "dlv@1.1.3";
     "dlv@^1.1.3" = "dlv@1.1.3";
-    "eastasianwidth" = "eastasianwidth@0.2.0";
-    "eastasianwidth@^0.2.0" = "eastasianwidth@0.2.0";
+    "emoji-regex" = "emoji-regex@8.0.0";
     "emoji-regex@^8.0.0" = "emoji-regex@8.0.0";
-    "emoji-regex@^9.2.2" = "emoji-regex@9.2.2";
     "esbuild" = "esbuild@0.21.3";
-    "esbuild@^0.21.3" = "esbuild@0.21.3";
     "fast-glob" = "fast-glob@3.3.2";
     "fast-glob@^3.3.0" = "fast-glob@3.3.2";
     "fastq" = "fastq@1.17.1";
@@ -1778,8 +1615,8 @@ self: super: {
     "is-number@^7.0.0" = "is-number@7.0.0";
     "isexe" = "isexe@2.0.0";
     "isexe@^2.0.0" = "isexe@2.0.0";
-    "jackspeak" = "jackspeak@2.3.6";
-    "jackspeak@^2.3.6" = "jackspeak@2.3.6";
+    "jackspeak" = "jackspeak@2.1.1";
+    "jackspeak@^2.3.6" = "jackspeak@2.1.1";
     "jiti" = "jiti@1.21.0";
     "jiti@^1.21.0" = "jiti@1.21.0";
     "lilconfig@^2.1.0" = "lilconfig@2.1.0";
@@ -1860,16 +1697,12 @@ self: super: {
     "signal-exit@^4.0.1" = "signal-exit@4.1.0";
     "source-map-js" = "source-map-js@1.2.0";
     "source-map-js@^1.2.0" = "source-map-js@1.2.0";
-    "string-width-cjs" = "string-width-cjs@4.2.3";
-    "string-width-cjs@npm:string-width@^4.2.0" = "string-width-cjs@4.2.3";
+    "string-width" = "string-width@4.2.3";
     "string-width@^4.1.0" = "string-width@4.2.3";
-    "string-width@^5.0.1" = "string-width@5.1.2";
-    "string-width@^5.1.2" = "string-width@5.1.2";
-    "strip-ansi-cjs" = "strip-ansi-cjs@6.0.1";
-    "strip-ansi-cjs@npm:strip-ansi@^6.0.1" = "strip-ansi-cjs@6.0.1";
+    "string-width@^4.2.0" = "string-width@4.2.3";
+    "strip-ansi" = "strip-ansi@6.0.1";
     "strip-ansi@^6.0.0" = "strip-ansi@6.0.1";
     "strip-ansi@^6.0.1" = "strip-ansi@6.0.1";
-    "strip-ansi@^7.0.1" = "strip-ansi@7.1.0";
     "sucrase" = "sucrase@3.35.0";
     "sucrase@^3.32.0" = "sucrase@3.35.0";
     "supports-preserve-symlinks-flag" = "supports-preserve-symlinks-flag@1.0.0";
@@ -1888,10 +1721,8 @@ self: super: {
     "util-deprecate@^1.0.2" = "util-deprecate@1.0.2";
     "which" = "which@2.0.2";
     "which@^2.0.1" = "which@2.0.2";
-    "wrap-ansi" = "wrap-ansi@8.1.0";
-    "wrap-ansi-cjs" = "wrap-ansi-cjs@7.0.0";
-    "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0" = "wrap-ansi-cjs@7.0.0";
-    "wrap-ansi@^8.1.0" = "wrap-ansi@8.1.0";
+    "wrap-ansi" = "wrap-ansi@7.0.0";
+    "wrap-ansi@^7.0.0" = "wrap-ansi@7.0.0";
     "yaml" = "yaml@2.4.2";
     "yaml@^2.3.4" = "yaml@2.4.2";
 
@@ -1920,7 +1751,6 @@ self: super: {
     "@esbuild/win32-arm64@0.21.3" = "@esbuild/win32-arm64@0.21.3";
     "@esbuild/win32-ia32@0.21.3" = "@esbuild/win32-ia32@0.21.3";
     "@esbuild/win32-x64@0.21.3" = "@esbuild/win32-x64@0.21.3";
-    "@isaacs/cliui@8.0.2" = "@isaacs/cliui@8.0.2";
     "@jridgewell/gen-mapping@0.3.5" = "@jridgewell/gen-mapping@0.3.5";
     "@jridgewell/resolve-uri@3.1.2" = "@jridgewell/resolve-uri@3.1.2";
     "@jridgewell/set-array@1.2.1" = "@jridgewell/set-array@1.2.1";
@@ -1931,9 +1761,7 @@ self: super: {
     "@nodelib/fs.walk@1.2.8" = "@nodelib/fs.walk@1.2.8";
     "@pkgjs/parseargs@0.11.0" = "@pkgjs/parseargs@0.11.0";
     "ansi-regex@5.0.1" = "ansi-regex@5.0.1";
-    "ansi-regex@6.0.1" = "ansi-regex@6.0.1";
     "ansi-styles@4.3.0" = "ansi-styles@4.3.0";
-    "ansi-styles@6.2.1" = "ansi-styles@6.2.1";
     "any-promise@1.3.0" = "any-promise@1.3.0";
     "anymatch@3.1.3" = "anymatch@3.1.3";
     "arg@5.0.2" = "arg@5.0.2";
@@ -1943,6 +1771,7 @@ self: super: {
     "braces@3.0.2" = "braces@3.0.2";
     "camelcase-css@2.0.1" = "camelcase-css@2.0.1";
     "chokidar@3.6.0" = "chokidar@3.6.0";
+    "cliui@8.0.1" = "cliui@8.0.1";
     "color-convert@2.0.1" = "color-convert@2.0.1";
     "color-name@1.1.4" = "color-name@1.1.4";
     "commander@4.1.1" = "commander@4.1.1";
@@ -1950,9 +1779,7 @@ self: super: {
     "cssesc@3.0.0" = "cssesc@3.0.0";
     "didyoumean@1.2.2" = "didyoumean@1.2.2";
     "dlv@1.1.3" = "dlv@1.1.3";
-    "eastasianwidth@0.2.0" = "eastasianwidth@0.2.0";
     "emoji-regex@8.0.0" = "emoji-regex@8.0.0";
-    "emoji-regex@9.2.2" = "emoji-regex@9.2.2";
     "esbuild@0.21.3" = "esbuild@0.21.3";
     "fast-glob@3.3.2" = "fast-glob@3.3.2";
     "fastq@1.17.1" = "fastq@1.17.1";
@@ -1972,7 +1799,7 @@ self: super: {
     "is-glob@4.0.3" = "is-glob@4.0.3";
     "is-number@7.0.0" = "is-number@7.0.0";
     "isexe@2.0.0" = "isexe@2.0.0";
-    "jackspeak@2.3.6" = "jackspeak@2.3.6";
+    "jackspeak@2.1.1" = "jackspeak@2.1.1";
     "jiti@1.21.0" = "jiti@1.21.0";
     "lilconfig@2.1.0" = "lilconfig@2.1.0";
     "lilconfig@3.1.1" = "lilconfig@3.1.1";
@@ -2011,12 +1838,8 @@ self: super: {
     "shebang-regex@3.0.0" = "shebang-regex@3.0.0";
     "signal-exit@4.1.0" = "signal-exit@4.1.0";
     "source-map-js@1.2.0" = "source-map-js@1.2.0";
-    "string-width-cjs@4.2.3" = "string-width-cjs@4.2.3";
     "string-width@4.2.3" = "string-width@4.2.3";
-    "string-width@5.1.2" = "string-width@5.1.2";
-    "strip-ansi-cjs@6.0.1" = "strip-ansi-cjs@6.0.1";
     "strip-ansi@6.0.1" = "strip-ansi@6.0.1";
-    "strip-ansi@7.1.0" = "strip-ansi@7.1.0";
     "sucrase@3.35.0" = "sucrase@3.35.0";
     "supports-preserve-symlinks-flag@1.0.0" = "supports-preserve-symlinks-flag@1.0.0";
     "tailwindcss@3.4.3" = "tailwindcss@3.4.3";
@@ -2026,8 +1849,7 @@ self: super: {
     "ts-interface-checker@0.1.13" = "ts-interface-checker@0.1.13";
     "util-deprecate@1.0.2" = "util-deprecate@1.0.2";
     "which@2.0.2" = "which@2.0.2";
-    "wrap-ansi-cjs@7.0.0" = "wrap-ansi-cjs@7.0.0";
-    "wrap-ansi@8.1.0" = "wrap-ansi@8.1.0";
+    "wrap-ansi@7.0.0" = "wrap-ansi@7.0.0";
     "yaml@2.4.2" = "yaml@2.4.2";
   };
 }

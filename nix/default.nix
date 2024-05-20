@@ -12,6 +12,8 @@
     priv = lib.packagesFromDirectoryRecursive {
       callPackage = self.callPackage;
       directory = ../src;
+    } // {
+      lib = self.callPackage ./lib.nix {};
     };
     shells = lib.packagesFromDirectoryRecursive {
       callPackage = self.callPackage;

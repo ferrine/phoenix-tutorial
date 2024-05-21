@@ -4,4 +4,7 @@ let
 in
 pkgs.callPackage ./mix.lock.nix {
   overrides = pkgs.callPackage ./overlay.nix { };
-} // {inherit mixLock;}
+} // {
+  inherit (priv.lib) mixDepsGet;
+  inherit mixLock;
+}

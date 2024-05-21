@@ -1,5 +1,5 @@
-{lib}:
-{
+{ lib, pkgs, runCommand, writeText, concatText }:
+rec {
   /**
     Expand attribute set recursively.
 
@@ -21,15 +21,42 @@
   **/
   expandAttrs = expandFn: nameFn: seed:
     let
+      inherit (lib) nameValuePair;
       expandAttrs = itemList:
         lib.listToAttrs (map
-          (dep: {name = nameFn dep; value = dep;})
+          (dep: nameValuePair (nameFn dep) dep)
           itemList);
       expandIteration = point:
         point // (lib.mergeAttrsList
           (map
             (item: expandAttrs (expandFn item))
             (builtins.attrValues point)));
-      in
+    in
     lib.converge expandIteration seed;
+
+  mixDeps = mix-nix: expandAttrs (d: d.beamDeps) lib.getName mix-nix;
+
+  mixDepsGet = name: mix-nix:
+    let
+      mix-deps = mixDeps mix-nix;
+      deps-paths = lib.mapAttrsToList (name: drv: { inherit name; path = drv.src; }) mix-deps;
+    in
+    pkgs.linkFarm name deps-paths;
+
+  mixLockEntry = lock: name:
+    runCommand "mix-lock-${name}" { } ''
+      ${pkgs.gnugrep}/bin/grep '"${name}":' ${lock} > $out
+    '';
+
+  mixLockFrom = lock: name: mix-nix:
+    let
+      mix-deps = mixDeps mix-nix;
+      start = writeText "mix-lock-begin" "%{";
+      end = writeText "mix-lock-end" "}\n";
+    in
+      concatText name (lib.flatten [
+        start
+        (map (mixLockEntry lock) (builtins.attrNames mix-deps))
+        end
+      ]);
 }

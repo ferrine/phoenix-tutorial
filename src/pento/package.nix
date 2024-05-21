@@ -1,7 +1,8 @@
 { callPackage, lib, priv, third-party, beamPackages }:
 let
   inherit (beamPackages) mixRelease;
-  mixNixDeps = with third-party.beamPackages; {
+  inherit (third-party.beamPackages) mixLock mixDepsGet mixDepsInstall;
+  beamDeps = with third-party.beamPackages; {
     inherit
       phoenix
       phoenix_ecto
@@ -24,6 +25,10 @@ let
       bandit;
   };
   assets = callPackage ./assets/package.nix {};
+  mix-deps = mixDepsGet beamDeps;
+  mix-lock = mixLock beamDeps;
+  mix-install = mixDepsInstall beamDeps;
+
 in
 mixRelease {
   pname = "pento";
@@ -36,6 +41,8 @@ mixRelease {
   postConfigure = ''
     mix phx.digest --no-deps-check
   '';
-  inherit mixNixDeps;
-  passthru = {inherit assets;};
+  mixNixDeps = beamDeps;
+  passthru = {
+    inherit beamDeps assets mix-deps mix-lock mix-install;
+  };
 }

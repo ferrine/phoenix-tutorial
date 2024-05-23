@@ -7,15 +7,13 @@ defmodule PentoWeb.WrongLive do
   end
 
   def mount(_params, session, socket) do
-    user = Accounts.get_user_by_session_token(session["user_token"])
     {
       :ok,
       assign(
         socket,
         score: 0,
         message: "Make a guess",
-        magic_number: magic_number(),
-        current_user: user
+        magic_number: magic_number()
       )
     }
   end

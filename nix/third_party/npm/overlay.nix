@@ -42,7 +42,7 @@ self: super: {
   "phoenix_live_view@*" = self."phoenix_live_view";
   "phoenix_html" = self.buildNodeModule {
     id = { scope = ""; name = "phoenix_html"; };
-    inherit (phoenix_live_view) src version;
+    inherit (phoenix_html) src version;
   };
   "phoenix_html@${phoenix_html.version}" = self."phoenix_html";
   "phoenix_html@*" = self."phoenix_html";

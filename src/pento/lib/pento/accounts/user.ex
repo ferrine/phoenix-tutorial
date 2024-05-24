@@ -37,9 +37,17 @@ defmodule Pento.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :username, :password])
     |> validate_email(opts)
     |> validate_password(opts)
+    |> validate_username(opts)
+  end
+
+  def validate_username(changeset, opts) do
+    changeset
+    |> validate_required([:username])
+    |> validate_length(:username, min: 4, max: 160)
+    |> maybe_validate_unique_username(opts)
   end
 
   defp validate_email(changeset, opts) do
@@ -86,6 +94,25 @@ defmodule Pento.Accounts.User do
     else
       changeset
     end
+  end
+
+  defp maybe_validate_unique_username(changeset, opts) do
+    if Keyword.get(opts, :validate_username, false) do
+      changeset
+      |> unsafe_validate_unique(:username, Pento.Repo)
+      |> unique_constraint(:username)
+    else
+      changeset
+    end
+  end
+
+  @doc """
+  Username changeset
+  """
+  def username_changeset(user, attrs, opts \\ []) do
+    user
+    |> cast(attrs, [:username])
+    |> validate_username(opts)
   end
 
   @doc """

@@ -96,6 +96,30 @@ defmodule Pento.Accounts do
   ## Settings
 
   @doc """
+  Tutorial implementation for creating a changeset for username
+  """
+  def change_user_username(user, attrs \\ %{}) do
+    User.username_changeset(user, attrs)
+  end
+
+  @doc """
+  Tutorial implementation for changeing username
+  """
+  def update_user_username(user, attrs) do
+    changeset =
+      user
+      |> User.username_changeset(attrs)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, changeset)
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{user: user}} -> {:ok, user}
+      {:error, :user, changeset, _} -> {:error, changeset}
+    end
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for changing the user email.
 
   ## Examples

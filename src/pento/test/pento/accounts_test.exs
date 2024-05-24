@@ -53,15 +53,22 @@ defmodule Pento.AccountsTest do
       {:error, changeset} = Accounts.register_user(%{})
 
       assert %{
+               username: ["can't be blank"],
                password: ["can't be blank"],
                email: ["can't be blank"]
              } = errors_on(changeset)
     end
 
     test "validates email and password when given" do
-      {:error, changeset} = Accounts.register_user(%{email: "not valid", password: "not valid"})
+      {:error, changeset} =
+        Accounts.register_user(%{
+          email: "not valid",
+          password: "not valid",
+          username: "s"
+        })
 
       assert %{
+               username: ["should be at least 4 character(s)"],
                email: ["must have the @ sign and no spaces"],
                password: ["should be at least 12 character(s)"]
              } = errors_on(changeset)

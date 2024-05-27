@@ -42,4 +42,16 @@ defmodule PentoWeb.PromoLive do
     # NOTE: assign_form is a nice helper defined above to assign to_form(changeset) to :form
     {:noreply, assign_form(socket, changeset)}
   end
+
+  def handle_event(
+        "save",
+        %{"recepient" => recepient_params},
+        %{assigns: %{recepient: recepient}} = socket) do
+    with {:ok, message} <- Promo.send_promo(recepient, recepient_params) do
+      {:noreply, put_flash(socket, :info, message) }
+    else
+      {:error, changeset} ->
+        {:noreply, assign_form(socket, changeset)}
+    end
+  end
 end

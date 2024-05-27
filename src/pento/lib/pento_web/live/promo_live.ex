@@ -29,4 +29,17 @@ defmodule PentoWeb.PromoLive do
     socket
     |> assign(:form, to_form(changeset))
   end
+
+  def handle_event(
+        "validate",
+        # NOTE: this data is coming from the form changeset
+        %{"recepient" => recepient_params},
+        %{assigns: %{recepient: recepient}} = socket) do
+    changeset =
+      recepient
+      |> Promo.change_recepient(recepient_params)
+      |> Map.put(:action, :validate)
+    # NOTE: assign_form is a nice helper defined above to assign to_form(changeset) to :form
+    {:noreply, assign_form(socket, changeset)}
+  end
 end

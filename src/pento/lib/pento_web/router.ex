@@ -71,6 +71,7 @@ defmodule PentoWeb.Router do
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
       live "/guess", WrongLive
       live "/promo", PromoLive
+      live "/search", SearchLive
 
       # the product resource
       live "/products", ProductLive.Index, :index

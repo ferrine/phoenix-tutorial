@@ -6,6 +6,8 @@ defmodule Pento.Promo do
   end
 
   def send_promo(recepient, attrs) do
+    # add timer to visualize delays and disabled buttons
+    :timer.sleep(10000)
     data = recepient
     |> Recepient.changeset(attrs)
     # dummy email send

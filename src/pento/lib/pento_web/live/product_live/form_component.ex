@@ -36,6 +36,13 @@ defmodule PentoWeb.ProductLive.FormComponent do
         <.live_img_preview entry={image} width="60" />
       </div>
       <progress value={image.progress} max="100" />
+      <div>
+        <%= for err <- upload_errors(@uploads.image, image) do %>
+        <.error>
+          <%= err %>
+        </.error>
+        <% end %>
+      </div>
       <% end %>
     </div>
     """

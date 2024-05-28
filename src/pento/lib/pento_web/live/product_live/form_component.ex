@@ -53,7 +53,8 @@ defmodule PentoWeb.ProductLive.FormComponent do
        :image,
        accept: ~w(.jpeg .png .jpg .webp),
        max_entries: 1,
-       max_upload_size: 9_000_000
+       max_upload_size: 9_000_000,
+       auto_upload: true
      )}
   end
 

@@ -35,6 +35,7 @@ defmodule PentoWeb.RatingLive.Index do
   attr :product, Product, required: true
   attr :current_user, User, required: true
   attr :index, :integer, required: true
+
   def product_rating(assigns) do
     ~H"""
     <div>
@@ -44,9 +45,13 @@ defmodule PentoWeb.RatingLive.Index do
       <RatingLive.Show.stars rating={rating} product={@product} />
     <% else %>
       <div>
-        <h3>
-          <%= @product.name %> rating form coming soon!
-        </h3>
+        <.live_component
+          module={RatingLive.Form}
+          id={"rating-form-#{@product.id}"}
+          product={@product}
+          product_index={@index}
+          current_user={@current_user}
+        />
       </div>
     <% end %>
     """

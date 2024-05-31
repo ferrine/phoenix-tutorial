@@ -9,6 +9,7 @@ defmodule PentoWeb.RatingLive.Form do
       |> assign(assigns)
       |> assign_rating()
       |> clear_form()
+
     {:ok, socket}
   end
 
@@ -25,5 +26,27 @@ defmodule PentoWeb.RatingLive.Form do
   def clear_form(%{assigns: %{rating: rating}} = socket) do
     socket
     |> assign_form(Survey.change_rating(rating))
+  end
+
+  def handle_event("save", %{"rating" => rating_params},  socket) do
+    {
+      :noreply,
+      socket
+      |> save_rating(rating_params)
+    }
+  end
+
+  def save_rating(
+        %{assigns: %{product_index: product_index, product: product}} = socket,
+        rating_params
+      ) do
+    case Survey.create_rating(rating_params) do
+      {:ok, rating} ->
+        product = %{product | ratings: [rating]}
+        send(self(), {:created_rating, product, product_index})
+        socket
+      {:error, %Ecto.Changeset{} = changeset} ->
+        assign_form(socket, changeset)
+    end
   end
 end

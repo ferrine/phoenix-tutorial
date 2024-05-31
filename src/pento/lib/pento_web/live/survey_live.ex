@@ -2,6 +2,7 @@ defmodule PentoWeb.SurveyLive do
   use PentoWeb, :live_view
   alias Pento.Survey
   alias Pento.Catalog
+  alias Pento.Catalog.Product
   alias PentoWeb.DemographicLive
   alias PentoWeb.RatingLive
   alias __MODULE__.Component
@@ -29,12 +30,32 @@ defmodule PentoWeb.SurveyLive do
     {:noreply,
      socket
      |> put_flash(:info, "Demographic created succesfully")
-     |> assign(:demographic, demographic)
-    }
+     |> assign(:demographic, demographic)}
+  end
+
+  def handle_info({:created_rating, %Product{} = updated_product, product_index}, socket) do
+    {:noreply, handle_rating_created(socket, updated_product, product_index)}
   end
 
   def assign_products(%{assigns: %{current_user: user}} = socket) do
     socket
     |> assign(:products, Catalog.list_products_with_user_ratings(user))
+  end
+
+  def handle_rating_created(
+        %{assigns: %{products: products}} = socket,
+        updated_product,
+        product_index
+      ) do
+    socket
+    |> put_flash(:info, "Thank you for rating")
+    |> assign(
+      :products,
+      List.replace_at(
+        products,
+        product_index,
+        updated_product
+      )
+    )
   end
 end

@@ -203,9 +203,4 @@ defmodule Pento.Survey do
     Demographic.Query.for_user(user)
     |> Repo.one()
   end
-
-  def list_products_with_user_ratings(user) do
-    Product.Query.with_user_ratings(user)
-    |> Repo.all()
-  end
 end

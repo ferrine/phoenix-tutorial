@@ -79,6 +79,18 @@ defmodule PentoWeb do
     end
   end
 
+  def chart do
+    quote do
+      unquote(chart_helpers())
+    end
+  end
+
+  defp chart_helpers do
+    quote do
+      import PentoWeb.BarChart
+    end
+  end
+
   defp html_helpers do
     quote do
       # HTML escaping functionality

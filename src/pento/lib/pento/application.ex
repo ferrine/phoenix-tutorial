@@ -16,6 +16,7 @@ defmodule Pento.Application do
       {Finch, name: Pento.Finch},
       # Start a worker by calling: Pento.Worker.start_link(arg)
       # {Pento.Worker, arg},
+      PentoWeb.Presence,
       # Start to serve requests, typically the last entry
       PentoWeb.Endpoint
     ]

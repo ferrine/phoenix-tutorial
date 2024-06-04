@@ -8,35 +8,51 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign_filter()
+     |> assign_age_filter()
+     |> assign_gender_filter()
      |> assign_products_with_average_ratings()
      |> assign_dataset()
      |> assign_chart()
      |> assign_chart_svg()}
   end
 
-  defp assign_filter(socket) do
+  defp assign_age_filter(%{assigns: %{age_group_filter: _}} = socket) do
+    # do not reassign
+    socket
+  end
+
+  defp assign_age_filter(socket) do
     socket
     |> assign(:age_group_filter, "all")
+  end
+
+  defp assign_age_filter(socket, filter) do
+    socket
+    |> assign(:age_group_filter, filter)
+  end
+
+  defp assign_gender_filter(%{assigns: %{gender_filter: _}} = socket) do
+    # do not reassign
+    socket
+  end
+
+  defp assign_gender_filter(socket) do
+    socket
     |> assign(:gender_filter, "all")
   end
 
-  defp assign_filter(
-         socket,
-         %{
-           "age_group_filter" => age_group,
-           "gender_filter" => gender,
-         }) do
+  defp assign_gender_filter(socket, filter) do
     socket
-    |> assign(:age_group_filter, age_group)
-    |> assign(:gender_filter, gender)
+    |> assign(:gender_filter, filter)
   end
 
   defp assign_products_with_average_ratings(
-         %{assigns: %{
+         %{
+           assigns: %{
              age_group_filter: age_group_filter,
              gender_filter: gender_filter
-           }} = socket
+           }
+         } = socket
        ) do
     socket
     |> assign(
@@ -52,6 +68,7 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     case Catalog.products_with_average_ratings(filter) do
       [] ->
         Catalog.products_with_zero_ratings()
+
       results ->
         results
     end
@@ -94,10 +111,15 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     "stars"
   end
 
-  def handle_event("filter", filter, socket) do
+  def handle_event(
+        "filter",
+        %{"gender_filter" => gender_filter, "age_group_filter" => age_group_filter},
+        socket
+      ) do
     {:noreply,
      socket
-     |> assign_filter(filter)
+     |> assign_age_filter(age_group_filter)
+     |> assign_gender_filter(gender_filter)
      |> assign_products_with_average_ratings()
      |> assign_dataset()
      |> assign_chart()

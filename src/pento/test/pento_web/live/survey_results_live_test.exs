@@ -6,38 +6,23 @@ defmodule PentoWeb.SurveyResultsLiveTest do
   alias PentoWeb.Admin.SurveyResultsLive
   import Pento.{CatalogFixtures, SurveyFixtures, AccountsFixtures}
 
-  defp create_product(_) do
-    %{product: product_fixture(%{name: "Test Game"})}
-  end
-
-  defp create_user(_) do
-    %{user: user_fixture()}
-  end
-
   defp create_rating(stars, user, product) do
-    %{rating: rating_fixture(%{stars: stars, user_id: user.id, product_id: product.id})}
+    rating_fixture(%{stars: stars, user_id: user.id, product_id: product.id})
   end
 
-  defp create_demographic(user) do
-    %{demographic: demographic_fixture(%{user_id: user.id})}
-  end
-
-  defp create_socket(_) do
-    %{socket: %Phoenix.LiveView.Socket{}}
+  defp create_demographic(user, age) do
+    demographic_fixture(%{
+      user_id: user.id,
+      year_of_birth: DateTime.utc_now().year - age
+    })
   end
 
   describe "Socket State" do
-    setup [
-      :create_user,
-      :create_product,
-      :create_socket
-    ]
-
-    setup %{user: user1} do
-      create_demographic(user1)
+    setup %{} do
+      product = product_fixture(%{name: "Test Game"})
+      user1 = user_fixture(%{email: "example1@email.com"})
       user2 = user_fixture(%{email: "example2@email.com"})
-      create_demographic(user2)
-      [user2: user2]
+      [user1: user1, user2: user2, product: product, socket: %Phoenix.LiveView.Socket{}]
     end
 
     test "no ratings exist", %{socket: socket} do
@@ -45,7 +30,7 @@ defmodule PentoWeb.SurveyResultsLiveTest do
       assert socket.assigns.products_with_average_ratings == [{"Test Game", 0}]
     end
 
-    test "rating exist", %{socket: socket, user: user, product: product} do
+    test "rating exist", %{socket: socket, user1: user, product: product} do
       create_rating(2, user, product)
       {:ok, socket} = SurveyResultsLive.update(%{}, socket)
       assert socket.assigns.products_with_average_ratings == [{"Test Game", 2}]
@@ -61,6 +46,21 @@ defmodule PentoWeb.SurveyResultsLiveTest do
       socket = Component.assign(socket, :gender_filter, "male")
       {:ok, socket} = SurveyResultsLive.update(%{}, socket)
       assert socket.assigns.gender_filter == "male"
+    end
+
+    test "it filters by age group", %{conn: conn, user1: user1, product: product, user2: user2} do
+      conn = log_in_user(conn, user1)
+      create_demographic(user1, 16)
+      create_demographic(user2, 20)
+      create_rating(2, user1, product)
+      create_rating(3, user2, product)
+      {:ok, view, html} = live(conn, "/admin/dashboard")
+      assert html =~ "<title>2.50</title>"
+      html =
+        view
+        |> element("#filter-form")
+        |> render_change(%{"age_group_filter" => "18 and under"})
+      assert html =~ "<title>2.00</title>"
     end
   end
 end

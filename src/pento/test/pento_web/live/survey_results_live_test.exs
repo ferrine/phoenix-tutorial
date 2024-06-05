@@ -60,11 +60,35 @@ defmodule PentoWeb.SurveyResultsLiveTest do
       create_rating(3, user2, product)
       {:ok, view, html} = live(conn, "/admin/dashboard")
       assert html =~ "<title>2.50</title>"
+
       html =
         view
         |> element("#filter-form")
         |> render_change(%{"age_group_filter" => "18 and under"})
+
       assert html =~ "<title>2.00</title>"
+    end
+
+    test "monitor changes on product rating survey", %{
+      conn: conn,
+      user1: user1,
+      product: product,
+      user2: user2
+    } do
+      conn1 = log_in_user(conn, user1)
+      conn2 = log_in_user(conn, user2)
+      create_demographic(user1, 16)
+      create_demographic(user2, 20)
+      create_rating(2, user1, product)
+      # create rating2 later
+      # user1 goes to live view
+      {:ok, view1, html1} = live(conn1, "/admin/dashboard")
+      assert html1 =~ "<title>2.00</title>"
+      # user2 then goes to survey
+      create_rating(3, user2, product)
+      send(view1.pid, %{event: "rating_created"})
+      :timer.sleep(1)
+      assert render(view1) =~ "<title>2.50</title>"
     end
   end
 end

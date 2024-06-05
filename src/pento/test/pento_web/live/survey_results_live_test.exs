@@ -17,13 +17,17 @@ defmodule PentoWeb.SurveyResultsLiveTest do
     })
   end
 
+  defp create_simple_data(_) do
+    product = product_fixture(%{name: "Test Game"})
+    user1 = user_fixture(%{email: "example1@email.com"})
+    user2 = user_fixture(%{email: "example2@email.com"})
+    [user1: user1, user2: user2, product: product, socket: %Phoenix.LiveView.Socket{}]
+  end
+
   describe "Socket State" do
-    setup %{} do
-      product = product_fixture(%{name: "Test Game"})
-      user1 = user_fixture(%{email: "example1@email.com"})
-      user2 = user_fixture(%{email: "example2@email.com"})
-      [user1: user1, user2: user2, product: product, socket: %Phoenix.LiveView.Socket{}]
-    end
+    setup [
+      :create_simple_data
+    ]
 
     test "no ratings exist", %{socket: socket} do
       {:ok, socket} = SurveyResultsLive.update(%{}, socket)

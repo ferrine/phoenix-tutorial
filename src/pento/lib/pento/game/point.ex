@@ -11,11 +11,11 @@ defmodule Pento.Game.Point do
   end
 
   def up(point, dy \\ 1) do
-    move(point, {0, dy})
+    move(point, {0, -dy})
   end
 
   def down(point, dy \\ 1) do
-    move(point, {0, -dy})
+    move(point, {0, dy})
   end
 
   def right(point, dx \\ 1) do

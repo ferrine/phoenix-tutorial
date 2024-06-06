@@ -73,6 +73,7 @@ defmodule PentoWeb.Router do
       live "/promo", PromoLive
       live "/search", SearchLive
       live "/survey", SurveyLive, :index
+      live "/game/:puzzle", GameLive
       # TODO: protect this route
       live "/admin/dashboard", Admin.DashboardLive
 

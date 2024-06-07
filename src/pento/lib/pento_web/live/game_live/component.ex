@@ -89,7 +89,38 @@ defmodule PentoWeb.GameLive.Component do
 
   defp location(i) do
     x = rem(i, 6) * 4 + 3
-    y = div(i, 6) *5 + 3
+    y = div(i, 6) * 5 + 3
     {x, y}
+  end
+
+  attr :width, :integer
+  def control_panel(assigns) do
+    ~H"""
+    <svg viewBox="0 0 40 40" width={@width}>
+      <defs>
+        <polygon id="triangle" points="6.25 1.875, 12.5 12.5, 0 12.5" />
+      </defs>
+
+      <.triangle rotate={0} x={14} y={0} fill={color(:light_blue)} />
+      <.triangle rotate={90} x={14} y={0} fill={color(:light_blue)} />
+      <.triangle rotate={180} x={14} y={0} fill={color(:light_blue)} />
+      <.triangle rotate={270} x={14} y={0} fill={color(:light_blue)} />
+      <circle cx="20" cy="20" r="1" />
+    </svg>
+    """
+  end
+
+  attr :rotate, :integer
+  attr :x, :integer
+  attr :y, :integer
+  attr :fill, :string
+  def triangle(assigns) do
+    ~H"""
+    <use x={@x} y={@y} transform={rotate(@rotate, 20, 20)} href="#triangle" fill={@fill} />
+    """
+  end
+
+  defp rotate(rotation, x, y) do
+    "rotate(#{rotation}, #{x}, #{y})"
   end
 end

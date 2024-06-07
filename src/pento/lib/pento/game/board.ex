@@ -43,4 +43,8 @@ defmodule Pento.Game.Board do
   def active?(%{active_pento: %{name: shape_name}}, shape_name) do
     true
   end
+
+  def active?(_board, _shape_name) do
+    false
+  end
 end

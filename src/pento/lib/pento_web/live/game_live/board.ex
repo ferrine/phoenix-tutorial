@@ -1,6 +1,7 @@
 defmodule PentoWeb.GameLive.Board do
   use PentoWeb, :live_component
-  alias Pento.Game.{Board, Pentomino}
+  alias Pento.Game.Board
+  alias Pento.Game
   import PentoWeb.GameLive.{Colors, Component}
 
   def update(%{puzzle: puzzle, id: id}, socket) do
@@ -16,13 +17,6 @@ defmodule PentoWeb.GameLive.Board do
   end
 
   def assign_board(%{assigns: %{puzzle: puzzle}} = socket) do
-    active = Pentomino.new(name: :p, location: {3, 2})
-
-    completed = [
-      Pentomino.new(name: :u, rotation: 270, location: {1, 2}),
-      Pentomino.new(name: :v, rotation: 90, location: {4, 2})
-    ]
-
     # atom must exist!
     _puzzles = Board.puzzles()
 
@@ -30,8 +24,6 @@ defmodule PentoWeb.GameLive.Board do
       puzzle
       |> String.to_existing_atom()
       |> Board.new()
-      |> Map.put(:completed_pentos, completed)
-      |> Map.put(:active_pento, active)
 
     assign(socket, board: board)
   end

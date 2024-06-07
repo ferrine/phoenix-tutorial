@@ -57,10 +57,14 @@ defmodule Pento.Game.Board do
     false
   end
 
+  def pick(board, sname)
+      when is_binary(sname) do
+    sname = String.to_existing_atom(sname)
+    pick(board, sname)
+  end
   # Let’s start with the first scenario: ignoring the action if
   # the selected shape name is :board.
   def pick(board, :board), do: board
-
   # Next up, we’ll handle the second scenario. The user is clicking on a
   # pentomino, but an active pentomino is already selected. In that
   # case, if the user clicks on the active one, we want to release it.

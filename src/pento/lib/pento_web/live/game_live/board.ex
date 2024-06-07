@@ -65,7 +65,6 @@ defmodule PentoWeb.GameLive.Board do
   end
 
   defp pick(socket, name) do
-    shape_name = String.to_existing_atom(name)
-    update(socket, :board, &Game.pick_pento(&1, shape_name))
+    update(socket, :board, &Game.pick_pento(&1, name))
   end
 end

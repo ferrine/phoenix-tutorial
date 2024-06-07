@@ -8,6 +8,13 @@ defmodule Pento.Game.Board do
     %__MODULE__{palette: palette(palette), points: points}
   end
 
+  def new(name)
+      when is_binary(name) do
+    # atom must exist!
+    _ = puzzles()
+    new(String.to_existing_atom(name))
+  end
+
   def new(:tiny), do: new(:small, rect(5, 3))
   def new(:widest), do: new(:all, rect(20, 3))
   def new(:wide), do: new(:all, rect(15, 4))

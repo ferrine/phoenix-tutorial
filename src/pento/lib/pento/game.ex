@@ -36,4 +36,9 @@ defmodule Pento.Game do
       {:error, @messages.illegal_drop}
     end
   end
+
+  defdelegate pick_pento(board, name), to: Board, as: :pick
+  defdelegate new_game(puzzle), to: Board, as: :new
+  defdelegate to_shapes(board), to: Board, as: :to_shapes
+  defdelegate active_pento?(board, name), to: Board, as: :active?
 end

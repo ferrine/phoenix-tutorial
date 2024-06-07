@@ -3,7 +3,7 @@
     <%= for shape <- @shapes do %>
       <.shape
         points={shape.points}
-        fill={color(shape.color, Board.active?(@board, shape.name), false)}
+        fill={color(shape.color, Game.active_pento?(@board, shape.name), false)}
         name={shape.name}
       />
     <% end %>

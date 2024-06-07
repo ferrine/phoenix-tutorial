@@ -27,12 +27,14 @@ defmodule Pento.Game.Board do
 
   def to_shapes(board) do
     board_shape = to_shape(board)
+
     pento_shapes =
       [board.active_pento | board.completed_pentos]
-      |> Enum.reverse
+      |> Enum.reverse()
       # active pento can be nil, filter that
       |> Enum.filter(& &1)
       |> Enum.map(&Pentomino.to_shape/1)
+
     [board_shape | pento_shapes]
   end
 
@@ -46,5 +48,70 @@ defmodule Pento.Game.Board do
 
   def active?(_board, _shape_name) do
     false
+  end
+
+  # Let’s start with the first scenario: ignoring the action if
+  # the selected shape name is :board.
+  def pick(board, :board), do: board
+
+  # Next up, we’ll handle the second scenario. The user is clicking on a
+  # pentomino, but an active pentomino is already selected. In that
+  # case, if the user clicks on the active one, we want to release it.
+  def pick(%{active_pento: pento} = board, sname) when not is_nil(pento) do
+    if pento.name == sname do
+      %{board | active_pento: nil}
+    else
+      board
+    end
+  end
+
+  # last scenario: there is no active pento, and the shape is not the
+  # underlying :board. That means the user is picking up a
+  # pentomino. It might be one that has already been solved. If so,
+  # we’ll remove it from the completed list and let them place it
+  # again. If not, we’ll simply make it the active pentomino.
+  def pick(board, shape_name) do
+    active =
+      board.completed_pentos
+      |> Enum.find(&(&1.name == shape_name))
+      |> Kernel.||(new_pento(board, shape_name))
+
+    completed = Enum.filter(board.completed_pentos, &(&1.name != shape_name))
+    %{board | active_pento: active, completed_pentos: completed}
+  end
+
+  defp new_pento(board, shape_name) do
+    Pentomino.new(name: shape_name, location: midpoints(board))
+  end
+
+  defp midpoints(board) do
+    {xs, ys} = Enum.unzip(board.points)
+    {midpoint(xs), midpoint(ys)}
+  end
+
+  defp midpoint(i), do: round(Enum.max(i) / 2.0)
+
+  def drop(%{active_pento: nil} = board), do: board
+
+  def drop(%{active_pento: pento} = board) do
+    board
+    |> Map.put(:active_pento, nil)
+    |> Map.put(:completed_pentos, [pento | board.completed_pentos])
+  end
+
+  def legal_drop?(%{active_pento: pento}) when is_nil(pento), do: false
+
+  def legal_drop?(%{active_pento: pento, points: board_points} = board) do
+    points_on_board =
+      Pentomino.to_shape(pento).points
+      |> Enum.all?(
+        fn point -> point in board_points end)
+
+    no_overlapping_pentos = !Enum.any?(board.completed_pentos, &Pentomino.overlapping?(pento, &1))
+    points_on_board and no_overlapping_pentos
+  end
+
+  def legal_move?(%{active_pento: pento, points: points}=_board) do
+    pento.location in points
   end
 end

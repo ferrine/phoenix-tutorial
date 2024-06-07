@@ -15,8 +15,9 @@ defmodule PentoWeb.GameLive.Component do
 
   def point(assigns) do
     ~H"""
-    <use
-      xlink:href="#point"
+    <rect
+      width="10"
+      height="10"
       x={convert(@x)}
       y={convert(@y)}
       fill={@fill}
@@ -50,9 +51,6 @@ defmodule PentoWeb.GameLive.Component do
   def canvas(assigns) do
     ~H"""
     <svg viewBox={@viewBox}>
-      <defs>
-        <rect id="point" width="10" height="10" />
-      </defs>
       <%= render_slot(@inner_block) %>
     </svg>
     """
@@ -116,7 +114,7 @@ defmodule PentoWeb.GameLive.Component do
   attr :fill, :string
   def triangle(assigns) do
     ~H"""
-    <use x={@x} y={@y} transform={rotate(@rotate, 20, 20)} href="#triangle" fill={@fill} />
+    <use x={@x} y={@y} transform={rotate(@rotate, 20, 20)} xlink:href="#triangle" fill={@fill} />
     """
   end
 
